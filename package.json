@@ -1,7 +1,12 @@
 {
   "type": "module",
   "dependencies": {
-    "gatacaqr": "^1.4.2",
+    "gatacaqr": "latest",
     "sqlite3": "latest"
+  },
+  "scripts": {
+    "issuer": "node issuer.js",
+    "verifier": "node verifier.js",
+    "start": "npm run issuer & npm run verifier"
   }
 }
