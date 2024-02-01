@@ -25,7 +25,8 @@ const jsonHeaders = {
 }
 
 const db = await openDB()
-const roles = await initRoles()
+// const roles = await initRoles()
+const roles = {}
 export { config, db, roles, jsonHeaders }
 
 function openDB() {
