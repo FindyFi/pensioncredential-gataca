@@ -1,0 +1,15 @@
+{
+    "api_id":"9721d70a-4ab3-4008-8106-05aa6b4fa015",
+    "api_password":"2J1qdwR9uGdiGGWWRJkWJiUCV3cbZN3FNEdsuSn2gjFA",
+    "tenant": "zGT59tYrVL8bXC73HAbAxWUJQUu9qpdL",
+    "template": "Opintotodiste",
+    "status_check_interval": 5,
+    "ns_prefix": "https://findy.fi/credentials",
+    "login_url": "https://nucleus.gataca.io/admin/v1/api_keys/login",
+    "issuance_url": "https://certify.gataca.io/api/v1/issuanceRequests",
+    "admin_url": "https://certify.gataca.io/admin/v1/issuanceRequests",
+    "db_file": "database.sqlite",
+    "server_host": "localhost",
+    "issuer_port": 8080,
+    "verifier_port": 8081
+}
