@@ -14,5 +14,6 @@ Edit [config.json](config.json) and set your API id, API password, tenant ID, an
 
 ## Deploy to Azure
 Click on the button below and follow the wizard. You need your API id, API password, tenant ID, and issuance template name.
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FFindyFi%2Fpensioncredentia-gataca%2Fmain%2FARMTemplate%2Ftemplate.json)
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FFindyFi%2Fpensioncredential-gataca%2Fmain%2FARMTemplate%2Ftemplate.json)
 
