@@ -14,12 +14,12 @@ const processParams = {
   body: JSON.stringify(processBody)
 }
 // console.log(JSON.stringify(processBody, null, 1))
-console.log(config.issuance_url, JSON.stringify(processParams, null, 1))
+// console.log(config.issuance_url, JSON.stringify(processParams, null, 1))
 const resp = await fetch(config.issuance_url, processParams)
 const json = await resp.json()
 const sessionId = json.id
-console.log(resp.status, sessionId)
-console.log(json)
+// console.log(resp.status, sessionId)
+// console.log(json)
 
 async function issueCredential(sessionId) {
 
@@ -28,7 +28,7 @@ async function issueCredential(sessionId) {
     method: 'GET',
     headers: jsonHeaders
   }
-  console.log(statusUrl, JSON.stringify(statusParams, null, 1))
+  // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
   const json = await statusResp.json()
   const status = json.status
@@ -45,10 +45,10 @@ async function issueCredential(sessionId) {
     body: JSON.stringify([issueBody])
   }
   // console.log(JSON.stringify(issueBody, null, 1))
-  console.log(issueUrl, JSON.stringify(issueParams, null, 1))
+  // console.log(issueUrl, JSON.stringify(issueParams, null, 1))
   const resp = await fetch(issueUrl, issueParams)
   const processes = await resp.json()
-  console.log(resp.status, processes)
+  // console.log(resp.status, processes)
   if (typeof processes == 'Array') {
     for (const process of processes) {
       if (process.id == sessionId) {
