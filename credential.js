@@ -5,20 +5,7 @@ const hash = createHash('sha256')
 const salt = config.ns_prefix
 
 export const pensionCredential = {
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    `${config.ns_prefix}/schemas/pensioncertificate.json`
-  ],
-  "id": `${config.ns_prefix}/${new Date().getTime()}`,
-  "type": [
-    "VerifiableCredential",
-    "PensionCertificate"
-  ],
-  "name": "Eläketodiste",
-  "issuanceDate": new Date().toISOString(),
-  "expirationDate": new Date().toISOString(),
   "credentialSubject": {
-    "type": "PensionCertificate",
     "pension": {
       "type": "Varhennettu kansaneläke",
       "startDate": "2024-02-01",
@@ -36,5 +23,9 @@ export const pensionCredential = {
       "identityType": "name",
       "salt": salt
     }
-  }
+  },
+  "type": [
+    "VerifiableCredential",
+    "pensionCertificateCredential"
+  ]
 }
