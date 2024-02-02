@@ -45,10 +45,10 @@ async function issueCredential(sessionId) {
     body: JSON.stringify([issueBody])
   }
   // console.log(JSON.stringify(issueBody, null, 1))
-  // console.log(issueUrl, JSON.stringify(issueParams, null, 1))
+  console.log(issueUrl, JSON.stringify(issueParams, null, 1))
   const resp = await fetch(issueUrl, issueParams)
   const processes = await resp.json()
-  // console.log(resp.status, processes)
+  console.log(resp.status, processes)
   if (typeof processes == 'Array') {
     for (const process of processes) {
       if (process.id == sessionId) {
@@ -59,6 +59,12 @@ async function issueCredential(sessionId) {
 }
 
 const sendOffer = async function (req, res) {
+  if (req.url !== '/') {
+    res.setHeader("Content-Type", "text/plain")
+    res.writeHead(404)
+    res.end(`Not Found`)
+    return false
+  }
   res.setHeader("Content-Type", "text/html")
   res.writeHead(200)
   res.end(`<!DOCTYPE html>
