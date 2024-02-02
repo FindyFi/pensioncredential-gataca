@@ -2,7 +2,12 @@ import { createServer, request } from 'node:http'
 import { config } from './init.js'
 
 const requestCredential = async function (req, res) {
-
+  if (req.url !== '/') {
+    res.setHeader("Content-Type", "text/plain")
+    res.writeHead(404)
+    res.end(`Not Found`)
+    return false
+  }
   res.setHeader("Content-Type", "text/html");
   res.writeHead(200);
   res.end(`<!DOCTYPE html>
