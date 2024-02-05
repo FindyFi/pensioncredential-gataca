@@ -7,7 +7,6 @@
     "ns_prefix": "https://pensiondemo.findy.fi",
     "login_url": "https://nucleus.gataca.io/admin/v1/api_keys/login",
     "offer_url": "https://certify.gataca.io/api/v3/oidc-issuance/credential-offer",
-    "issuance_url": "https://certify.gataca.io/api/v1/issuanceRequests",
     "admin_url": "https://certify.gataca.io/admin/v1/issuanceRequests",
     "db_file": "database.sqlite",
     "server_host": "localhost",

@@ -57,15 +57,7 @@ async function issueCredential(sessionId) {
   const resp = await fetch(issueUrl, issueParams)
   const processes = await resp.json()
   console.log(resp.status, processes)
-/*
-  if (typeof processes == 'Array') {
-    for (const process of processes) {
-      if (process.id == sessionId) {
-        console.log(JSON.stringify(process.data, null, 1))
-      }
-    }  
-  }
-*/
+
 }
 
 const handleRequests = async function (req, res) {
@@ -100,22 +92,6 @@ const handleRequests = async function (req, res) {
     res.end(`Not Found`)
     return false
   }
-
-/*
-  const processBody = {
-    "group": config.template
-  }
-  const processParams = {
-    method: 'POST',
-    headers: jsonHeaders,
-    body: JSON.stringify(processBody)
-  }
-  // console.log(JSON.stringify(processBody, null, 1))
-  // console.log(config.issuance_url, JSON.stringify(processParams, null, 1))
-  const resp = await fetch(config.issuance_url, processParams)
-  const json = await resp.json()
-  // const sessionId = json.id
-*/
 
   const offer = await createOffer()
   const offerUri = offer?.credential_offer_uri
