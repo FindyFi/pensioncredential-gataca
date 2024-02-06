@@ -97,7 +97,7 @@ const handleRequests = async function (req, res) {
   const offerUri = offer?.credential_offer_uri
   const credOffer = new URL(offerUri)?.searchParams?.get('credential_offer_uri');
   // console.log(offer, offerUri, credOffer)
-  const sessionId = new URL(credOffer).pathname.split("/").pop()
+  const sessionId = new URL(credOffer)?.pathname?.split("/")?.pop()
 
   res.setHeader("Content-Type", "text/html")
   res.writeHead(200)
