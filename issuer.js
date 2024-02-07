@@ -24,12 +24,12 @@ async function createOffer() {
   }
   // console.log(JSON.stringify(offerBody, null, 1))
   // console.log(offerUrl, JSON.stringify(offerParams, null, 1))
+  const resp = await fetch(offerUrl, offerParams)
   if (resp.status == 403) {
     const init = import('./init.js')
     jsonHeaders = (await init).jsonHeaders
     return createOffer()
   }
-  const resp = await fetch(offerUrl, offerParams)
   const offer = await resp.json()
   console.log(resp.status, offer)
   return offer
