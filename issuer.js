@@ -95,6 +95,18 @@ const handleRequests = async function (req, res) {
 
   const offer = await createOffer()
   const offerUri = offer?.credential_offer_uri
+  if (!offer || !offerUri) {
+    console.warn('No credential offer!')
+    res.setHeader("Content-Type", "text/html")
+    res.writeHead(200)
+    res.end(`<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8">
+ <title>Virhe</title>
+ <h1>Virhe</h1>
+</html>`)
+    return false
+  }
   const credOffer = new URL(offerUri)?.searchParams?.get('credential_offer_uri');
   // console.log(offer, offerUri, credOffer)
   const sessionId = new URL(credOffer)?.pathname?.split("/")?.pop()
