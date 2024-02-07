@@ -2,6 +2,7 @@ import { createServer, request } from 'node:http'
 import { pensionCredential } from './credential.js'
 import {config, jsonHeaders } from './init.js'
 
+let apiHeaders = jsonHeaders
 // console.log(roles)
 // console.log(JSON.stringify(pensionCredential, null, 2))
 
@@ -19,7 +20,7 @@ async function createOffer() {
   }
   const offerParams = {
     method: 'POST',
-    headers: jsonHeaders,
+    headers: apiHeaders,
     body: JSON.stringify(offerBody)
   }
   // console.log(JSON.stringify(offerBody, null, 1))
@@ -27,7 +28,7 @@ async function createOffer() {
   const resp = await fetch(offerUrl, offerParams)
   if (resp.status == 403) {
     const init = import('./init.js')
-    jsonHeaders = (await init).jsonHeaders
+    apiHeaders = (await init).jsonHeaders
     return createOffer()
   }
   const offer = await resp.json()
@@ -39,13 +40,13 @@ async function checkStatus(sessionId) {
   const statusUrl = `${config.admin_url}/${sessionId}`
   const statusParams = {
     method: 'GET',
-    headers: jsonHeaders
+    headers: apiHeaders
   }
   // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
   if (statusResp.status == 403) {
     const init = import('./init.js')
-    jsonHeaders = (await init).jsonHeaders
+    apiHeaders = (await init).jsonHeaders
     return checkStatus(sessionId)
   }
   const json = await statusResp.json()
@@ -59,7 +60,7 @@ async function issueCredential(sessionId) {
   const issueBody = pensionCredential
   const issueParams = {
     method: 'PATCH',
-    headers: jsonHeaders,
+    headers: apiHeaders,
     body: JSON.stringify([issueBody])
   }
   // console.log(JSON.stringify(issueBody, null, 1))
@@ -67,7 +68,7 @@ async function issueCredential(sessionId) {
   const resp = await fetch(issueUrl, issueParams)
   if (resp.status == 403) {
     const init = import('./init.js')
-    jsonHeaders = (await init).jsonHeaders
+    apiHeaders = (await init).jsonHeaders
     return issueCredential(sessionId)
   }
   const processes = await resp.json()
