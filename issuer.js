@@ -24,6 +24,11 @@ async function createOffer() {
   }
   // console.log(JSON.stringify(offerBody, null, 1))
   // console.log(offerUrl, JSON.stringify(offerParams, null, 1))
+  if (resp.status == 403) {
+    const init = import('./init.js')
+    jsonHeaders = (await init).jsonHeaders
+    return createOffer()
+  }
   const resp = await fetch(offerUrl, offerParams)
   const offer = await resp.json()
   console.log(resp.status, offer)
@@ -38,6 +43,11 @@ async function checkStatus(sessionId) {
   }
   // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
+  if (statusResp.status == 403) {
+    const init = import('./init.js')
+    jsonHeaders = (await init).jsonHeaders
+    return checkStatus(sessionId)
+  }
   const json = await statusResp.json()
   const status = json.status
   console.log(statusResp.status, status, statusMap[status])
@@ -55,6 +65,11 @@ async function issueCredential(sessionId) {
   // console.log(JSON.stringify(issueBody, null, 1))
   // console.log(issueUrl, JSON.stringify(issueParams, null, 1))
   const resp = await fetch(issueUrl, issueParams)
+  if (resp.status == 403) {
+    const init = import('./init.js')
+    jsonHeaders = (await init).jsonHeaders
+    return issueCredential(sessionId)
+  }
   const processes = await resp.json()
   console.log(resp.status, processes)
 
