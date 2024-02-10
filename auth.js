@@ -12,6 +12,9 @@ export async function auth(config) {
     
     // console.log(config.login_url, params)
     const resp = await fetch(config.login_url, params)
+    if (resp.status == 409) {
+        return false
+    }
     const token = resp.headers.get('token')
     const token_type = resp.headers.get('token_type')
     // console.log(resp.status, token_type, token)
