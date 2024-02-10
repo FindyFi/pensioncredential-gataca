@@ -27,12 +27,13 @@ async function createOffer() {
   // console.log(offerUrl, JSON.stringify(offerParams, null, 1))
   const resp = await fetch(offerUrl, offerParams)
   if (resp.status == 403) {
+    console.warn('Refreshing auth token')
     const init = import('./init.js')
     apiHeaders = (await init).jsonHeaders
     return createOffer()
   }
   const offer = await resp.json()
-  console.log(resp.status, offer)
+  console.log(resp.status, JSON.stringify(offer, null, 2))
   return offer
 }
 
@@ -72,7 +73,7 @@ async function issueCredential(sessionId) {
     return issueCredential(sessionId)
   }
   const processes = await resp.json()
-  console.log(resp.status, processes)
+  console.log(resp.status, JSON.stringify(processes, null, 2))
 
 }
 
