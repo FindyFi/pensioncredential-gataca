@@ -3,6 +3,9 @@ import config from './config.json' assert {'type': 'json'}
 import { auth } from './auth.js'
 
 const auth_token = await auth(config)
+if (!auth_token) {
+    throw new Error('No auth token. Incorrect credentials or expired free trial?')
+}
 
 const issuerName = 'Kela'
 const issuerImage = 'https://www.kela.fi/documents/20124/410402/logo-kela-rgb.png/50cdb366-b094-027e-2ac2-0439af6dc529?t=1643974848905'
