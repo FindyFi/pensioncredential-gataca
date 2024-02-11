@@ -2,7 +2,6 @@ import { createServer, request } from 'node:http'
 import { pensionCredential } from './credential.js'
 import {config, jsonHeaders } from './init.js'
 
-let apiHeaders = jsonHeaders
 // console.log(roles)
 // console.log(JSON.stringify(pensionCredential, null, 2))
 
@@ -20,7 +19,7 @@ async function createOffer() {
   }
   const offerParams = {
     method: 'POST',
-    headers: apiHeaders,
+    headers: jsonHeaders,
     body: JSON.stringify(offerBody)
   }
   // console.log(JSON.stringify(offerBody, null, 1))
@@ -28,9 +27,9 @@ async function createOffer() {
   const resp = await fetch(offerUrl, offerParams)
   if (resp.status == 403) {
     console.warn('Refreshing auth token')
-    const init = import('./init.js')
-    apiHeaders = (await init).jsonHeaders
-    return createOffer()
+    const auth = await import('./auth.js')
+    jsonHeaders.Authorization = await auth(config, config.template)
+    return createOffer() // recursion, possible infinite loop!
   }
   const offer = await resp.json()
   console.log(resp.status, JSON.stringify(offer, null, 2))
@@ -41,14 +40,14 @@ async function checkStatus(sessionId) {
   const statusUrl = `${config.admin_url}/${sessionId}`
   const statusParams = {
     method: 'GET',
-    headers: apiHeaders
+    headers: jsonHeaders
   }
   // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
   if (statusResp.status == 403) {
-    const init = import('./init.js')
-    apiHeaders = (await init).jsonHeaders
-    return checkStatus(sessionId)
+    const auth = await import('./auth.js')
+    jsonHeaders.Authorization = await auth(config, config.template)
+    return checkStatus(sessionId) // recursion, possible infinite loop!
   }
   const json = await statusResp.json()
   const status = json.status
@@ -61,16 +60,16 @@ async function issueCredential(sessionId) {
   const issueBody = pensionCredential
   const issueParams = {
     method: 'PATCH',
-    headers: apiHeaders,
+    headers: jsonHeaders,
     body: JSON.stringify([issueBody])
   }
   // console.log(JSON.stringify(issueBody, null, 1))
   // console.log(issueUrl, JSON.stringify(issueParams, null, 1))
   const resp = await fetch(issueUrl, issueParams)
   if (resp.status == 403) {
-    const init = import('./init.js')
-    apiHeaders = (await init).jsonHeaders
-    return issueCredential(sessionId)
+    const auth = await import('./auth.js')
+    jsonHeaders.Authorization = await auth(config, config.template)
+    return issueCredential(sessionId) // recursion, possible infinite loop!
   }
   const processes = await resp.json()
   console.log(resp.status, JSON.stringify(processes, null, 2))
