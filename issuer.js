@@ -27,7 +27,7 @@ async function createOffer() {
   const resp = await fetch(offerUrl, offerParams)
   if (resp.status == 403) {
     console.warn('Refreshing auth token')
-    const auth = await import('./auth.js')
+    const { auth } = await import('./auth.js')
     jsonHeaders.Authorization = await auth(config, config.template)
     return createOffer() // recursion, possible infinite loop!
   }
@@ -45,7 +45,7 @@ async function checkStatus(sessionId) {
   // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
   if (statusResp.status == 403) {
-    const auth = await import('./auth.js')
+    const { auth } = await import('./auth.js')
     jsonHeaders.Authorization = await auth(config, config.template)
     return checkStatus(sessionId) // recursion, possible infinite loop!
   }
@@ -67,7 +67,7 @@ async function issueCredential(sessionId) {
   // console.log(issueUrl, JSON.stringify(issueParams, null, 1))
   const resp = await fetch(issueUrl, issueParams)
   if (resp.status == 403) {
-    const auth = await import('./auth.js')
+    const { auth } = await import('./auth.js')
     jsonHeaders.Authorization = await auth(config, config.template)
     return issueCredential(sessionId) // recursion, possible infinite loop!
   }

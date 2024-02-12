@@ -1,5 +1,4 @@
-import config from './config.json' assert {'type': 'json'}
-export default async function auth(config, template) {
+export async function auth(config, template) {
     const pwStr = [config.api_id, config.api_password].join(':')
     const b64 = Buffer.from(pwStr).toString('base64')
     const params = {

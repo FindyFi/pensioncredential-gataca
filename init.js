@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3'
 import config from './config.json' assert {'type': 'json'}
-import auth from './auth.js'
+import { auth } from './auth.js'
 
 const auth_token = await auth(config, config.template)
 if (!auth_token) {

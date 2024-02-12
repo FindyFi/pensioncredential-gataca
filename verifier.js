@@ -1,6 +1,6 @@
 import { createServer, request } from 'node:http'
 import { config, jsonHeaders } from './init.js'
-import auth from './auth.js'
+import { auth } from './auth.js'
 
 const auth_token = await auth(config, config.verificationTemplate)
 jsonHeaders.Authorization = auth_token
@@ -14,7 +14,7 @@ async function checkStatus(sessionId) {
   // console.log(statusUrl, JSON.stringify(statusParams, null, 1))
   const statusResp = await fetch(statusUrl, statusParams)
   if (statusResp.status == 403) {
-    const auth = await import('./auth.js')
+    const { auth } = await import('./auth.js')
     jsonHeaders.Authorization = await auth(config, config.verificationTemplate)
     return checkStatus(sessionId)
   }
