@@ -47,7 +47,12 @@ async function showVerifierPage(res) {
   // console.log(sessionsUrl, JSON.stringify(sessionsParams, null, 1))
   const sessionsResp = await fetch(sessionsUrl, sessionsParams)
   console.log(sessionsResp.status, sessionsUrl)
-  if (sessionsResp.status == 400 || sessionsResp.status == 500) {
+  if (sessionsResp.status == 403) {
+    const { auth } = await import('./auth.js')
+    jsonHeaders.Authorization = await auth(config, config.verificationTemplate)
+    return showVerifierPage(res)
+  }
+  else if (sessionsResp.status == 400 || sessionsResp.status == 500) {
     const error = await sessionsResp.text()
     console.error(error)
     console.log(JSON.stringify(sessionsParams, null, 2))
@@ -56,8 +61,11 @@ async function showVerifierPage(res) {
     res.end(error)
     return false
   }
+  else if (sessionsResp != 200 || !json) {
+    console.log(JSON.stringify(sessionsParams, null, 2))
+  }
   const json = await sessionsResp.json()
-  // console.log(sessionsResp.status, JSON.stringify(json.data, null, 1))
+  // console.log(JSON.stringify(json.data, null, 1))
   const sessionId = json.presentation_definition.id
   const authRequest = json.authentication_request
   console.log(sessionsResp.status, sessionId, authRequest)
