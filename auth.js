@@ -12,6 +12,7 @@ export async function auth(config, template) {
     // console.log(config.login_url, params)
     const resp = await fetch(config.login_url, params)
     if (resp.status == 409) {
+        console.log(resp.status, JSON.stringify(params, null, 1))
         return false
     }
     const token = resp.headers.get('token')
