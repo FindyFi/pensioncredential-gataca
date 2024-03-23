@@ -2,9 +2,6 @@ import { createServer, request } from 'node:http'
 import { pensionCredential } from './credential.js'
 import {config, jsonHeaders } from './init.js'
 
-// console.log(roles)
-// console.log(JSON.stringify(pensionCredential, null, 2))
-
 const statusMap = {
   'PENDING': 0,
   'READY': 1,
@@ -77,6 +74,18 @@ async function issueCredential(sessionId) {
 }
 
 const handleRequests = async function (req, res) {
+  if (!jsonHeaders.Authorization) {
+    res.setHeader("Content-Type", "text/html")
+    res.writeHead(200)
+    res.end(`<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8">
+ <title>Virhe</title>
+ <h1>Tunnistustiedot eivät kelpaa!</h1>
+ <p>Olisikohan ilmainen kokeilujakso päättynyt?</p>
+</html>`)
+    return false
+  }
   let match
   if (match = req.url.match(/^\/status\/(.*)/)) {
     const sessionId = match[1]
