@@ -35,6 +35,18 @@ async function checkStatus(sessionId) {
 }
 
 async function showVerifierPage(res) {
+  if (!jsonHeaders.Authorization) {
+    res.setHeader("Content-Type", "text/html")
+    res.writeHead(200)
+    res.end(`<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8">
+ <title>Virhe</title>
+ <h1>Tunnistustiedot eivät kelpaa!</h1>
+ <p>Olisikohan ilmainen kokeilujakso päättynyt?</p>
+</html>`)
+    return false
+  }
   const sessionsUrl = config.sessions_url
   const sessionsBody = {
     "ssiConfigId": config.verificationTemplate
