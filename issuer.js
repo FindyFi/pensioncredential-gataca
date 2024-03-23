@@ -76,7 +76,7 @@ async function issueCredential(sessionId) {
 const handleRequests = async function (req, res) {
   if (!jsonHeaders.Authorization) {
     res.setHeader("Content-Type", "text/html")
-    res.writeHead(200)
+    res.writeHead(500)
     res.end(`<!DOCTYPE html>
 <html>
  <meta charset="UTF-8">

@@ -37,7 +37,7 @@ async function checkStatus(sessionId) {
 async function showVerifierPage(res) {
   if (!jsonHeaders.Authorization) {
     res.setHeader("Content-Type", "text/html")
-    res.writeHead(200)
+    res.writeHead(500)
     res.end(`<!DOCTYPE html>
 <html>
  <meta charset="UTF-8">
