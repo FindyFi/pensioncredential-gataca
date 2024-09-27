@@ -142,18 +142,21 @@ async function showVerifierPage(res) {
     console.log(JSON.stringify(data, null, 2))
     // console.log(JSON.stringify(qr.sessionData, null, 4))
     console.log(JSON.stringify(data.PresentationSubmission.verifiableCredential, null, 4))
-    for (let vc of data?.PresentationSubmission?.verifiableCredential) {
-     console.log(JSON.stringify(vc, null, 1))
-     const credential = vc.credentialSubject
-     const html = \`<p>Todisteen tarkistuksen tila: <strong>OK</strong></p>
-      <table>
-       <tr><th>Nimi</th><td>\${credential.person?.firstName} \${credential.person?.lastName}</td></tr>
-       <tr><th>Eläke</th><td>\${credential.pension?.type} \${credential.pension?.startDate}–\${credential.pension?.endDate || ''}</td></tr>
-      </table>
-      <pre>\${JSON.stringify(status, null, 2)}</pre>\`
-     c.innerHTML = html
-     c.ondblclick = function(e) {
-      this.classList.toggle('full')
+    for (const ps of data?.PresentationSubmission) {
+     for (const vc of ps.verifiableCredential) {
+      console.log(JSON.stringify(vc, null, 1))
+      const credential = vc.credentialSubject
+      const html = \`<p>Todisteen tarkistuksen tila: <strong>OK</strong></p>
+       <table>
+        <tr><th>Nimi</th><td>\${credential.person?.firstName} \${credential.person?.lastName}</td></tr>
+        <tr><th>Eläke</th><td>\${credential.pension?.type} \${credential.pension?.startDate}–\${credential.pension?.endDate || ''}</td></tr>
+       </table>
+       <pre>\${JSON.stringify(status, null, 2)}</pre>\`
+      c.innerHTML = html
+      c.ondblclick = function(e) {
+       this.classList.toggle('full')
+      }
+      break
      }
     }
    }
