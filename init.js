@@ -1,4 +1,4 @@
-import config from './config.json' assert {'type': 'json'}
+import config from './config.json' with {'type': 'json'}
 import { auth } from './auth.js'
 
 // override config file with environment variables
