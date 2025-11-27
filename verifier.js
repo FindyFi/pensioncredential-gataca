@@ -77,8 +77,8 @@ async function showVerifierPage(res) {
     console.log(JSON.stringify(sessionsParams, null, 2))
   }
   const json = await sessionsResp.json()
-  // console.log(JSON.stringify(json.data, null, 1))
-  const sessionId = json.presentation_definition.id
+  console.log(JSON.stringify(json.data, null, 1))
+  const sessionId = json.presentation_definition?.id
   const authRequest = json.authentication_request
   console.log(sessionsResp.status, sessionId, authRequest)
   res.setHeader("Content-Type", "text/html")
