@@ -145,10 +145,10 @@ const handleRequests = async function (req, res) {
  <script type="module" src="https://unpkg.com/@gataca/qr@2.0.4/dist/gatacaqr/gatacaqr.esm.js"></script>
  <script nomodule="" src="https://unpkg.com/@gataca/qr@2.0.4/dist/index.js"></script>
  <body style="text-align: center;">
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Kela_suomi_kela-1-.jpg/220px-Kela_suomi_kela-1-.jpg" alt="Kela" />
+  <img src="https://upload.wikimedia.org/wikipedia/fi/e/e3/Kansanel%C3%A4kelaitoksen_logo.svg" alt="Kela" style="height: 100px;" />
   <h1>Heippa vahvasti tunnistettu asiakas!</h1>
   <p>Skannaapa oheinen QR-koodi digikukkarollasi niin laitetaan sinne eläketodistetta tulemaan...</p>
-  <gataca-qr id="gataca-qr" polling-frequency="3" session-timeout="30" autostart="true" style="display: block; width: 256px; margin: 0 auto;" v-2="true"></gataca-qr>
+  <gataca-qr id="gataca-qr" polling-frequency="3" session-timeout="300" autostart="true" style="display: block; width: 256px; margin: 0 auto;" v-2="true"></gataca-qr>
   <script>
    const qr = document.getElementById('gataca-qr')
    var count = 0
